@@ -1,9 +1,11 @@
 namespace WebApi.Helpers;
 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System.Text.Json.Serialization;
 using WebApi.Services;
 
 public class JwtMiddleware
@@ -25,6 +27,8 @@ public class JwtMiddleware
             attachUserToContext(context, userService, token);
 
         await _next(context);
+
+        Console.WriteLine("Request se vraca korisniku!");
     }
 
     private void attachUserToContext(HttpContext context, IUserService userService, string token)
